@@ -4,7 +4,7 @@ import List from "../pages/list";
 import ProtectedRoute from "./protected";
 import Author from "../pages/author";
 import Book from "../pages/book";
-import { getAuthById, getBookById, query } from "../query";
+import { getAuthById, getBookById, query } from "../ultils/query";
 import Error from "./error";
 
 export default createBrowserRouter([

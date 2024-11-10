@@ -21,7 +21,7 @@ export default function UserMenu() {
   };
 
   if (!user) {
-    return null; // Optionally, render a login button or placeholder here if user is not authenticated
+    return null; 
   }
 
   const { displayName, photoURL } = user;
@@ -36,7 +36,7 @@ export default function UserMenu() {
         <img
           className="ml-2 w-6 h-6 rounded-full"
           alt="avatar"
-          src={photoURL as string}
+          src={photoURL}
         />
       </button>
 

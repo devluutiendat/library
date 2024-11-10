@@ -49,7 +49,8 @@ const link = "http://localhost:4000/graphql";
       authorId
     },
     authors{
-      id
+      id,
+      name
     }
   }`
   export const upDateAuthor = `mutation e($updateAuthorId: ID!, $birthday: String, $nationality: String, $name: String, $bookIds: [String]){
