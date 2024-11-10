@@ -1,6 +1,6 @@
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { addAuthor, query, upDateAuthor } from '../src/query';
+import { addAuthor, query, upDateAuthor } from '../query';
 
 const Author = () => {
   const { authorId } = useParams();

@@ -1,6 +1,6 @@
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { upDateBook, query, addBook } from '../src/query';
+import { upDateBook, query, addBook } from '../query';
 
 const Book = () => {
   const { bookId } = useParams();
