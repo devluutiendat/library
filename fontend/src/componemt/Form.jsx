@@ -6,15 +6,19 @@ import {
   addBook,
   addAuthor,
   upDateAuthor,
+  deleteBook,
+  deleteAuthor,
 } from "../ultils/query";
+import { FaTrashAlt } from "react-icons/fa";
 import { useEffect } from "react";
 
 const FormAction = ({ type, id, initialData }) => {
+  useEffect(() => {
+    console.log();
+  }, []);
   const initType = type === "book" && initialData.authors;
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(id);
-  }, []);
+
   const {
     register,
     handleSubmit,
@@ -30,20 +34,20 @@ const FormAction = ({ type, id, initialData }) => {
       if (type === "book") {
         formattedData.pages = parseInt(data.pages, 10);
       }
-
-      if (id !== "newBook" || id !== "newAuthor") {
+      
+      if (id === "newBook" || id === "newAuthor") {
+        if (type === "book") {
+          await query(addBook, formattedData);
+        } else {
+          await query(addAuthor, data);
+        }
+      } else {
         if (type === "book") {
           formattedData.updateBookId = id;
           await query(upDateBook, formattedData);
         } else {
           data.updateAuthorId = id;
           await query(upDateAuthor, data);
-        }
-      } else {
-        if (type === "book") {
-          await query(addBook, formattedData);
-        } else {
-          await query(addAuthor, data);
         }
       }
       navigate("/");
@@ -52,13 +56,28 @@ const FormAction = ({ type, id, initialData }) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      if (type === "book") {
+        console.log(1);
+        
+        await query(deleteBook, { deleteBookId: id });
+      } else {
+        await query(deleteAuthor, { deleteAuthorId: id });
+      }
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">{type} Details</h1>
+      <FaTrashAlt className="text-2xl my-4" onClick={handleDelete} />
       <p className="text-gray-600 mb-4">
         {type} ID: {id || "N/A"}
       </p>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         {type === "book" ? (
           <>
@@ -162,8 +181,8 @@ const FormAction = ({ type, id, initialData }) => {
               type="submit"
               className="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-150"
             >
-              {!id ? "add" : "update"}
-              {type === book ? " book" : " author"}
+              {id !== "newBook" && id !== "newAuthor" ? "update" : "add"}
+              {type === "book" ? " book" : " author"}
             </button>
           </>
         )}

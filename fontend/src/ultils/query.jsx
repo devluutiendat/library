@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const link = "http://localhost:4000/graphql";
- export const getBookQuery = `query getData {
+export const getBookQuery = `query getData {
     books {
       id,
       title,
@@ -12,7 +12,7 @@ const link = "http://localhost:4000/graphql";
     }
   }`;
 
- export const getAuthorQuery = `query getAuthor {
+export const getAuthorQuery = `query getAuthor {
     authors {
       id,
       birthday,
@@ -23,7 +23,7 @@ const link = "http://localhost:4000/graphql";
       }
     }
   }`;
- export const getAuthById = `query getAuthor($authorId:ID!) {
+export const getAuthById = `query getAuthor($authorId:ID!) {
     author(id: $authorId) {
       id,
       birthday,
@@ -39,7 +39,7 @@ const link = "http://localhost:4000/graphql";
       }
     }
   }`;
-  export const getBookById = `query getBookById($bookId: ID!){
+export const getBookById = `query getBookById($bookId: ID!){
     book(id: $bookId) {
       id,
       title,
@@ -52,39 +52,53 @@ const link = "http://localhost:4000/graphql";
       id,
       name
     }
-  }`
-  export const upDateAuthor = `mutation e($updateAuthorId: ID!, $birthday: String, $nationality: String, $name: String, $bookIds: [String]){
+  }`;
+export const upDateAuthor = `mutation e($updateAuthorId: ID!, $birthday: String, $nationality: String, $name: String, $bookIds: [String]){
     updateAuthor(id: $updateAuthorId,birthday: $birthday,nationality: $nationality,name: $name,bookIds: $bookIds) {
       id
     }
-  },`
-  export const upDateBook = `mutation e($updateBookId: ID!, $publishedDate: String!, $genre: String!, $pages: Int!, $title: String!, $authorId: String!){
+  },`;
+export const upDateBook = `mutation e($updateBookId: ID!, $publishedDate: String!, $genre: String!, $pages: Int!, $title: String!, $authorId: String!){
     updateBook(id: $updateBookId, publishedDate: $publishedDate, genre: $genre, pages: $pages, title: $title, authorId: $authorId) {
       id
     }
-  },`
-  export const addBook = `mutation addBook($title: String!, $publishedDate: String!, $genre: String!, $pages: Int!, $authorId: ID!){
+  },`;
+export const addBook = `mutation addBook($title: String!, $publishedDate: String!, $genre: String!, $pages: Int!, $authorId: ID!){
     addBook(title: $title, publishedDate: $publishedDate, genre: $genre, pages: $pages, authorId: $authorId) {
       id
     }
-  }`
-  export const addAuthor = `mutation addAuthor($name: String!, $birthday: String!, $nationality: String!){
+  }`;
+export const addAuthor = `mutation addAuthor($name: String!, $birthday: String!, $nationality: String!){
     addAuthor(name: $name, birthday: $birthday, nationality: $nationality) {
       id
     }
-  }`
-  export const query = async (query,variables={}) => {
-    try {
-      const response = await axios.post(link, JSON.stringify({ query,variables }), {
+  }`;
+export const deleteBook = `mutation deleteBook($deleteBookId: ID!){
+  deleteBook(id: $deleteBookId) {
+    id
+  }
+}`;
+export const deleteAuthor = `mutation deleteAuthor($deleteAuthorId: ID!){
+  deleteAuthor(id: $deleteAuthorId) {
+    id
+  }
+}`;
+
+export const query = async (query, variables = {}) => {
+  try {
+    const response = await axios.post(
+      link,
+      JSON.stringify({ query, variables }),
+      {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-      });
-      return response
-    } catch (err) {
-      console.error('Network error:', err);
-    }
-  };  
+      }
+    );
+    return response;
+  } catch (err) {
+    console.error("Network error:", err);
+  }
+};
 
-
-  export default getBookById
+export default getBookById;
